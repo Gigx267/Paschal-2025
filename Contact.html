@@ -173,17 +173,24 @@
                     </p>
                     
                     <div class="section-title">Send  a message</div>
-                    <form class="contact-form">
+                    <form id="form" class="contact-form">
+                        
+                        
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required>
                         
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" required>
                         
+                        <label for="phone_number">Phone Number</label>
+                        <input type="text" id="phone_number" name="phone_number" required>
+
                         <label for="message">Message</label>
                         <textarea id="message" name="message" rows="5" required></textarea>
                         
-                        <button type="submit">Submit</button>
+                       
+
+                        <button type="submit" id="button">Send </button>
                     </form>
                 </div>
 
@@ -202,7 +209,34 @@
     <script src="js/vendor/scrollmagic.animation.gsap.min.js"></script>
     <script src="js/vendor/debug.addIndicators.min.js"></script>
     <script src="js/main.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+      emailjs.init('tZdIGcniwuMcHyU_E');
+    </script> 
+    <script type="text/javascript">
+      const btn = document.getElementById('button');
+
+      document.getElementById('form')
+        .addEventListener('submit', function(event) {
+          event.preventDefault();
+
+          btn.value = 'Sending...';
+
+          const serviceID = 'default_service';
+          const templateID = 'template_xehnbtn';
+
+          emailjs.sendForm(serviceID, templateID, this)
+            .then(() => {
+              btn.value = 'Send Email';
+              alert('Sent!');
+            }, (err) => {
+              btn.value = 'Send Email';
+              alert(JSON.stringify(err));
+            });
+        });
+    </script>
   </div>
 </body>
 
-</html>
+</html> 
+``` ▋
